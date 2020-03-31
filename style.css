@@ -1,0 +1,130 @@
+/*      Header       */
+.header {
+    width: 80%;
+    background: #C4C4C4;
+    margin: 1em auto;
+    margin-top: 0em;
+    text-align: center;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.header h1 {
+    padding-top: 2rem;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    font-size: 3em;
+}
+
+.header p {
+    margin: 0.7em;
+    padding-bottom: 2em;
+}
+
+
+/*      Nav Bar       */
+.nav-bar {
+    width: 80%;
+    background: #C4C4C4;
+    margin: 1em auto;
+}
+
+
+.nb-list {
+    font-family: 'Inter', sans-serif;
+    list-style-type: none;
+    text-align: center;
+    padding: 2em;
+}
+
+.list-item {
+    display: inline;
+    margin: 1.3em;
+}
+
+
+/*       Main       */
+.main {
+    width: 80%;
+    height: 40em;
+    background-color: rgba(196, 196, 196, 0.25);   
+    margin: 0 auto; 
+}
+
+.divider-main {
+    height: 7em;
+}
+
+
+
+/*      App       */
+.app {
+    width: 35em;
+    height: 25em;
+    background-color: #C4C4C4;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.divider-app {
+    height: 6rem;
+}
+
+.app-item {
+
+
+    margin: auto ;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.genre {
+
+}
+
+.year input {
+    width: 4em;
+    margin: 1em;
+}
+
+
+
+
+
+/*       Mobile        */
+@media only screen and (max-width: 600px) {
+
+    .header h1 { 
+        font-size: 2em;
+        padding-top: 1rem;
+    }
+
+    .divider-main {
+        height: 2em;
+    }
+
+    .divider-app {
+        height: 2em;
+    }
+
+    .app {
+        width: 80%;
+    }
+    
+    .main {
+        height: auto;
+        padding-bottom: 2em;
+    }
+}
+
+
+
+
+/*       App       */
+
+.app-response {
+    width: 35em;
+    height: 35em;
+    background-color: #C4C4C4;
+    margin: 2em auto;
+    text-align: center;
+}
