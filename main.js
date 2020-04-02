@@ -1,79 +1,63 @@
 // key and parameters for OMDb API (omdbapi.com)
 let key = 'e3758ad2'
 let title = 'the other guys'
+let endpoint = 'http://www.omdbapi.com/?apikey='
 
 // Selecting page elements, assigning handlers
 let app = document.getElementById('app')
-app.onclick = getResult
 let titleInput = document.getElementById('title-input')
+app.onclick = getResult
 
-// fetch request
-function getResult() {
-  const resultFrame = document.createElement('div')
-  resultFrame.className = 'app-response'
-  app.appendChild(resultFrame)
+async function fetchTitle(title) {
+    const fetchedInfo = await fetch(endpoint + key + '&t=' + title)
+    .then((response) => {
+        return response.json()
+    }, (networkError) => {
+        resultDiv.innerHTML = networkError.message
+    })
+    .then((data) => {
+        let stringToDisplay = processJson(data)
+        // console.log(stringToDisplay)
+        // prints "The Other Guys, 2010, Action, Comedy... "
+        return stringToDisplay
+    })
+    // console.log(fetchedInfo)
+    // prints "The Other Guys, 2010, Action, Comedy... "
+    return fetchedInfo
+    // returns [object Promise]
   
-
-  fetch('http://www.omdbapi.com/?apikey=' + key + '&t=' + title)
-  .then((response) => {
-    return response.json()
-  }, (networkError) => {
-    resultFrame.innerHTML = networkError.message
-  })
-  .then((data) => {
-    
-    let stringToDisplay = processJson(data)
-    resultFrame.innerHTML = stringToDisplay
-
-  })
 }
 
+function getResult() {
+    // create new div
+    const resultDiv = document.createElement('div')
+    resultDiv.className = 'app-response'
+    app.appendChild(resultDiv)
 
+    // fetch the title
+    let titleResponse 
+    fetchTitle(title).then(fetchedInfo => {
+        console.log(1, fetchedInfo)
+        titleResponse = fetchedInfo
+        console.log(2, titleResponse)
+    })
+    console.log(3, titleResponse)
+
+    // write to new div
+    resultDiv.innerHTML = titleResponse
+    console.log(4, titleResponse)
+
+}
 
 function processJson(data) {
-  console.log(data)
 
-  let genre = data["Genre"]
-  let title = data["Title"]
-  let year = data["Year"]
-  let ratings = "IMDb: " + data["Ratings"][0]["Value"] + ", " + "Rotten Tomatoes: " + data["Ratings"][1]["Value"] + ", " + "Metacritic: " + data["Ratings"][1]["Value"] + ", "
+    let genre = data["Genre"]
+    let title = data["Title"]
+    let year = data["Year"]
+    let ratings = "IMDb: " + data["Ratings"][0]["Value"] + ", " + "Rotten Tomatoes: " + data["Ratings"][1]["Value"] + ", " + "Metacritic: " + data["Ratings"][1]["Value"] + ", "
+    
+    let stringToDisplay = title + "\n" + year + "\n" + genre + "\n" + ratings
   
-  let stringToDisplay = title + "\n" + year + "\n" + genre + "\n" + ratings
-
-  console.log()
-
-  return stringToDisplay
-
-}
-
-
-function fetchTitle(title) {
-
-
-
-
-}
-
-
-
-
-
-
-
-// FROM CODECADEMY LESSON ON REQUESTS
-// Renders the JSON that was returned when the Promise from fetch resolves.
-const renderJsonResponse = (response) => {
-  // Creates an empty object to store the JSON in key-value pairs
-  let rawJson = {}
-  for(let key in response){
-    rawJson[key] = response[key]
+    return stringToDisplay
+  
   }
-  // Converts JSON into a string and adding line breaks to make it easier to read
-  rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n")
-  // Manipulates responseField to show the returned JSON.
-  // responseField.innerHTML = `<pre>${rawJson}</pre>`
-
-  // return rawJson
-  console.log('3rd', rawJson)
-  return rawJson
-}
