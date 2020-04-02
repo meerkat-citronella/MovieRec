@@ -6,8 +6,6 @@ let title = 'the other guys'
 let app = document.getElementById('app')
 app.onclick = getResult
 let titleInput = document.getElementById('title-input')
-console.log(titleInput)
-
 
 // fetch request
 function getResult() {
@@ -18,37 +16,43 @@ function getResult() {
 
   fetch('http://www.omdbapi.com/?apikey=' + key + '&t=' + title)
   .then((response) => {
-    // console.log('1st: ', response) 
-    // console.log('2nd: ', response.json())
-    // return renderJsonResponse(response);
     return response.json()
   }, (networkError) => {
     resultFrame.innerHTML = networkError.message
   })
   .then((data) => {
-
     
-    console.log(data)
-
-    let genre = data["Genre"]
-    let title = data["Title"]
-    let year = data["Year"]
-    let ratings = "IMDb: " + data["Ratings"][0]["Value"] + ", " + "Rotten Tomatoes: " + data["Ratings"][1]["Value"] + ", " + "Metacritic: " + data["Ratings"][1]["Value"] + ", "
-    
-    let stringToDisplay = title + "\n" + year + "\n" + genre + "\n" + ratings
-
-    console.log(stringToDisplay)
-
+    let stringToDisplay = processJson(data)
     resultFrame.innerHTML = stringToDisplay
-
 
   })
 }
 
 
 
+function processJson(data) {
+  console.log(data)
+
+  let genre = data["Genre"]
+  let title = data["Title"]
+  let year = data["Year"]
+  let ratings = "IMDb: " + data["Ratings"][0]["Value"] + ", " + "Rotten Tomatoes: " + data["Ratings"][1]["Value"] + ", " + "Metacritic: " + data["Ratings"][1]["Value"] + ", "
+  
+  let stringToDisplay = title + "\n" + year + "\n" + genre + "\n" + ratings
+
+  console.log()
+
+  return stringToDisplay
+
+}
 
 
+function fetchTitle(title) {
+
+
+
+
+}
 
 
 
