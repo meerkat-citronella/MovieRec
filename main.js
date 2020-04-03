@@ -8,8 +8,8 @@ let app = document.getElementById('app')
 let titleInput = document.getElementById('title-input')
 app.onclick = getResult
 
-async function fetchTitle(title) {
-    const fetchedInfo = await fetch(endpoint + key + '&t=' + title)
+function fetchTitle(title) {
+    return fetch(endpoint + key + '&t=' + title)
     .then((response) => {
         return response.json()
     }, (networkError) => {
@@ -17,35 +17,24 @@ async function fetchTitle(title) {
     })
     .then((data) => {
         let stringToDisplay = processJson(data)
-        // console.log(stringToDisplay)
+        console.log(stringToDisplay)
         // prints "The Other Guys, 2010, Action, Comedy... "
         return stringToDisplay
     })
-    // console.log(fetchedInfo)
-    // prints "The Other Guys, 2010, Action, Comedy... "
-    return fetchedInfo
-    // returns [object Promise]
-  
+    
 }
 
-function getResult() {
+async function getResult() {
     // create new div
     const resultDiv = document.createElement('div')
     resultDiv.className = 'app-response'
     app.appendChild(resultDiv)
 
     // fetch the title
-    let titleResponse 
-    fetchTitle(title).then(fetchedInfo => {
-        console.log(1, fetchedInfo)
-        titleResponse = fetchedInfo
-        console.log(2, titleResponse)
-    })
-    console.log(3, titleResponse)
+    let titleResponse = await fetchTitle(title)
 
     // write to new div
     resultDiv.innerHTML = titleResponse
-    console.log(4, titleResponse)
 
 }
 
